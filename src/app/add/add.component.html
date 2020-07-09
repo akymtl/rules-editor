@@ -1,0 +1,34 @@
+<content class="text-left">
+  <h4>Set Rule Properties</h4>
+
+  <h5>Rental Properties</h5>
+  <dl>
+    <dt>Amount (Dollars)</dt>
+    <dd>
+      <app-dropdown [button-text]="ruleCriteria.amount" [value]="amount?.length ? amount[1] : amount" (get-input)="setValue($event, 'amount')"></app-dropdown>
+    </dd>
+    <dt>Tenure (Months)</dt>
+    <dd>
+      <app-dropdown [button-text]="ruleCriteria.tenure" [value]="tenure?.length ? tenure[1] : tenure" (get-input)="setValue($event, 'tenure')"></app-dropdown>
+    </dd>
+    <dt>Product (Single)</dt>
+    <dd><input type="text" class="form-control" [(ngModel)]="product" /></dd>
+  </dl>
+
+  <h5>Customer Properties</h5>
+  <dl>
+    <dt>Age (Years)</dt>
+    <dd>
+      <app-dropdown [button-text]="ruleCriteria.age" [value]="age?.length ? age[1] : age" (get-input)="setValue($event, 'age')"></app-dropdown>
+    </dd>
+    <dt>Pincode (Single)</dt>
+    <dd><input type="number" size="6" class="form-control" [(ngModel)]="pincode" /></dd>
+  </dl>
+
+  <div class="btn-group btn-group-justified" style="display: flex;">
+    <button class="btn btn-success" (click)="createRule()" [disabled]="!amount && !tenure && !product && !age && !pincode">Create
+      Rule</button>
+    <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+  </div>
+
+</content>

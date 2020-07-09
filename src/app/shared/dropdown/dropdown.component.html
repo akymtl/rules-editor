@@ -1,0 +1,27 @@
+<div ngbDropdown class="d-inline-block">
+  <button class="btn btn-outline-primary" ngbDropdownToggle>
+    {{ buttonText }}
+  </button>
+  <div ngbDropdownMenu>
+    <button ngbDropdownItem (click)="less()">Less than</button>
+    <button ngbDropdownItem (click)="greater()">Greater than</button>
+    <button ngbDropdownItem (click)="range()">Within range</button>
+  </div>
+</div>
+<form class="ml-1 form-inline">
+  <div class="form-group" *ngIf="showLess">
+    <label>Enter {{context}} less than </label> &nbsp;
+    <input type="number" class="form-control" placeholder="Enter the {{context}}" [(ngModel)]="value"
+      [ngModelOptions]="{standalone: true}" (blur)="input.emit({context: buttonText, data: value})" />
+  </div>
+  <div class="form-group" *ngIf="showGreater">
+    <label>Enter {{context}} greater than </label> &nbsp;
+    <input type="number" class="form-control" placeholder="Enter the {{context}}" [(ngModel)]="value"
+      [ngModelOptions]="{standalone: true}" (blur)="input.emit({context: buttonText, data: value})" />
+  </div>
+  <div class="form-group" *ngIf="showRange">
+    <label>Enter {{context}} within range </label> &nbsp;
+    <input type="text" class="form-control" placeholder="Enter in format start, end" [(ngModel)]="value"
+      [ngModelOptions]="{standalone: true}" (blur)="input.emit({context: buttonText, data: value})" />
+  </div>
+</form>
