@@ -1,7 +1,7 @@
 <content class="text-left">
   <h4>Set Rule Properties</h4>
 
-  <h5>Rental Properties</h5>
+  <!-- <h5>Rental Properties</h5>
   <dl>
     <dt>Amount (Dollars)</dt>
     <dd>
@@ -26,13 +26,27 @@
     </dd>
     <dt>Pincode (Single)</dt>
     <dd><input type="number" size="6" class="form-control" [(ngModel)]="pincode" /></dd>
-  </dl>
+  </dl> -->
+  <ng-container *ngFor="let property of properties | keyvalue">
+    <h5>{{property.key}} Properties</h5>
+    <dl>
+      <ng-container *ngFor="let item of property.value | keyvalue">
+        <dt>{{item.value.label}}</dt>
+        <dd>
+          <app-dropdown *ngIf="item.value.field == 'dropdown'" [button-text]="ruleCriteria[item.key]"
+            [value]="props[item.key]?.length ? props[item.key][1] : props[item.key]" [context]="item.key"
+            (get-input)="setValue($event, item.key)"></app-dropdown>
+          <input *ngIf="item.value.field == 'input'" type="{{item.value.type}}" class="form-control"
+            [(ngModel)]="props[item.key]" />
+        </dd>
+      </ng-container>
+    </dl>
+  </ng-container>
 
   <div class="btn-group btn-group-justified" style="display: flex;">
     <button class="btn btn-success" (click)="createRule()"
-      [disabled]="!amount && !tenure && !product && !age && !pincode">Create
+      [disabled]="!props.amount && !props.tenure && !props.product && !props.age && !props.pincode">Upsert
       Rule</button>
     <button class="btn btn-danger" (click)="cancel()">Cancel</button>
   </div>
-
 </content>

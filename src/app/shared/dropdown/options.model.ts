@@ -17,7 +17,7 @@ export const Options = {
 }
 
 export interface IOptions {
-    less: any;
-    greater: any;
-    range: any;
+    less?: any;
+    greater?: any;
+    range?: any;
 }

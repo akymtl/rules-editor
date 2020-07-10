@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Options, IOptions } from '../model/options.model';
+
+import { Options, IOptions } from './options.model';
 
 @Component({
   selector: 'app-dropdown',
