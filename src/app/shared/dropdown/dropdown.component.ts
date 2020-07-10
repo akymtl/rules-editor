@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Options, IOptions } from '../model/options.model';
 
 @Component({
   selector: 'app-dropdown',
@@ -9,48 +9,33 @@ import { NgForm } from '@angular/forms';
 export class DropdownComponent implements OnInit {
   @Input('button-text') buttonText: string;
   @Input('value') value: number | string = undefined;
+  @Input('context') context: string;
+
   @Output('get-input') input: EventEmitter<any> = new EventEmitter();
 
-  context: string;
-  showLess: boolean = false;
-  showGreater: boolean = false;
-  showRange: boolean = false;
+  show: IOptions = {};
+  options = Options;
 
-  constructor() { }
+  constructor() {
+    Object.keys(this.options).forEach(key => {
+      this.show[key] = false;
+    });
+  }
 
   ngOnInit(): void {
-    if (this.buttonText) {
-      this.context = this.buttonText.split(' ')[1];
-      if (this.buttonText.includes('less')) {
-        this.less();
-      }
-      if (this.buttonText.includes('great')) {
-        this.greater();
-      }
-      if (this.buttonText.includes('range')) {
-        this.range();
-      }
+    if (!this.buttonText.toLowerCase().includes('select')) {
+      this.optionChange(this.buttonText);
     }
   }
 
-  less() {
-    this.showLess = true;
-    this.showGreater = false;
-    this.showRange = false;
-    this.buttonText = 'less than';
-  }
-
-  greater() {
-    this.showLess = false;
-    this.showGreater = true;
-    this.showRange = false;
-    this.buttonText = 'greater than';
-  }
-
-  range() {
-    this.showLess = false;
-    this.showGreater = false;
-    this.showRange = true;
-    this.buttonText = 'within range of';
+  optionChange(buttonText: string) {
+    Object.keys(this.show).forEach(key => {
+      if (buttonText.includes(key)) {
+        this.show[key] = true;
+      } else {
+        this.show[key] = false;
+      }
+    });
+    this.buttonText = buttonText;
   }
 }

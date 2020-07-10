@@ -1,4 +1,5 @@
-<button class="btn btn-block btn-success" routerLink="add" [state]="{ data: {rules: ruleList, index: -1} }">Add Rule</button>
+<button class="btn btn-block btn-success" routerLink="add" [state]="{ data: {rules: ruleList, index: -1} }">Add
+  Rule</button>
 <br>
 <div class="w-100 table-responsive" *ngIf="ruleList.length">
   <table class="table table-hover table-bordered">
@@ -13,9 +14,11 @@
       <tr *ngFor="let rule of ruleList; index as i;">
         <td>{{i+1}}</td>
         <td>{{rule.description}}</td>
-        <td class="action-buttons">
-          <button class="btn btn-info" routerLink="edit" [state]="{ data: {rules: ruleList, index: i} }">Edit</button>
-          <button class="btn btn-danger" (click)="deleteRule(i)">Delete</button>
+        <td>
+          <span class="action-buttons">
+            <button class="btn btn-info" routerLink="edit" [state]="{ data: {rules: ruleList, index: i} }">Edit</button>
+            <button class="btn btn-danger" (click)="deleteRule(i)">Delete</button>
+          </span>
         </td>
       </tr>
     </tbody>

@@ -30,15 +30,15 @@ export class AddComponent implements OnInit {
       const ruleProperties = this.rules[history.state.data.index]?.description?.split(' & ');
       ruleProperties.forEach(prop => {
         const property = prop.split(' is ')[0].split('the ')[1];
-        if(prop.includes('less than')) {
+        if (prop.includes('less than')) {
           this[property] = ['less than', Number(prop.split(' than ')[1])];
-          this.ruleCriteria[property] = `less ${property} than`;
-        } else if(prop.includes('greater than')) {
+          this.ruleCriteria[property] = `less than`;
+        } else if (prop.includes('greater than')) {
           this[property] = ['greater than', Number(prop.split(' than ')[1])];
-          this.ruleCriteria[property] = `greater ${property} than`;
+          this.ruleCriteria[property] = `greater than`;
         } else if (prop.includes('within range of')) {
           this[property] = ['within range of', prop.split(' of ')[1].split(' and ').join(', ')];
-          this.ruleCriteria[property] = `within ${property} range of`;
+          this.ruleCriteria[property] = `within range of`;
         } else {
           this[property] = prop.split(' is ')[1];
         }
@@ -59,8 +59,10 @@ export class AddComponent implements OnInit {
         this[property] = undefined;
         return;
       }
+      this[property] = [valueObj.context, valueObj.data];
+    } else {
+      this[property] = [valueObj.context, Number(valueObj.data)];
     }
-    this[property] = [valueObj.context, valueObj.data];
   }
 
   createRule() {
