@@ -81,7 +81,7 @@ export class AddComponent implements OnInit {
         if (this.rule.description.length > 3) {
           this.rule.description += ' &';
         }
-        Array.isArray(this.props[key]) ? this.addComplexPropertyDescription(key) : this.addSimplePropertyDescription(key);
+        Array.isArray(this.props[key]) ? this.addComplexDescription(key) : this.addSimpleDescription(key);
       }
     });
 
@@ -93,7 +93,7 @@ export class AddComponent implements OnInit {
     this.router.navigate([''], { state: { data: this.rules } });
   }
 
-  private addComplexPropertyDescription(property: string) {
+  private addComplexDescription(property: string) {
     this.rule.description += ` the ${property} is ${this.props[property][0]}`;
     if (typeof this.props[property][1] !== 'number') { // For range
       const value = this.props[property][1].split(', ');
@@ -101,10 +101,10 @@ export class AddComponent implements OnInit {
     } else {
       this.rule.description += ` ${this.props[property][1]}`;
     }
-    this.addComplexPropertyLogic(property);
+    this.addComplexLogic(property);
   }
 
-  private addComplexPropertyLogic(property: string) {
+  private addComplexLogic(property: string) {
     if (this.rule.logic.length) {
       this.rule.logic += ' && ';
     }
@@ -116,12 +116,12 @@ export class AddComponent implements OnInit {
     }
   }
 
-  private addSimplePropertyDescription(property: string) {
+  private addSimpleDescription(property: string) {
     this.rule.description += ` the ${property} is ${this.props[property]}`;
-    this.addSimplePropertyLogic(property);
+    this.addSimpleLogic(property);
   }
 
-  private addSimplePropertyLogic(property: string) {
+  private addSimpleLogic(property: string) {
     if (this.rule.logic.length) {
       this.rule.logic += ' && ';
     }
